@@ -22,8 +22,8 @@ public class CommandProcessor
         }
 
         var userInput = command.Split(" ");
-        int productId = int.Parse(userInput[1]);
-        int days = int.Parse(userInput[2]);
+        int productId = 0;
+        int days = 0;
         
         if (userInput.Length < 2 || !int.TryParse(userInput[1], out productId))
         {

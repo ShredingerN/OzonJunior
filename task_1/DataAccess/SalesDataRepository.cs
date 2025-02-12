@@ -13,14 +13,22 @@ public class SalesDataRepository: ISalesDataRepository
     }
     public List<SalesData> LoadData()
     {
-        Console.WriteLine($"Загрузка данных из файла: {_filePath}");
-        var reader = new StreamReader(_filePath);
-        var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
-        var records = csv.GetRecords<SalesData>().ToList();
-
-        Console.WriteLine($"Загружено записей: {records.Count}");
-
+        var records = File.ReadLines(_filePath)
+            .Skip(1)
+            .Where(l => !string.IsNullOrWhiteSpace(l))
+            .Select(l =>
+            {
+                var parts = l.Split(',');
+                return new SalesData
+                {
+                    Id = int.Parse(parts[0]),
+                    Date = DateTime.Parse(parts[1]),
+                    Sales = int.Parse(parts[2]),
+                    Stock = int.Parse(parts[3]),
+                };
+            }).ToList();
         
+        Console.WriteLine($"Загружено записей: {records.Count}");
         foreach (var record in records)
         {
             Console.WriteLine($"Id: {record.Id}, Date: {record.Date}, Sales: {record.Sales}, Stock: {record.Stock}");

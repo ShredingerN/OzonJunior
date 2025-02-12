@@ -56,8 +56,16 @@ public class SalesDataGenerator
             }
         }
 
-        using var writer = new StreamWriter(filePath);
-        var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
-        csv.WriteRecords(salesDataList);
+        using (var writer = new StreamWriter(filePath))
+        {
+            writer.WriteLine("Id,Date,Sales,Stock");
+            foreach (var salesData in salesDataList)
+            {
+                writer.WriteLine($"{salesData.Id}, " +
+                                 $"{salesData.Date.ToString("dd-MM-yyyy",CultureInfo.InvariantCulture)}, " +
+                                 $"{salesData.Sales}, " +
+                                 $"{salesData.Stock}");
+            }
+        }
     }
 }
