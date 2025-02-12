@@ -25,7 +25,7 @@ public class CommandProcessor
         int productId = int.Parse(userInput[1]);
         int days = int.Parse(userInput[2]);
         
-        if (userInput.Length > 2 || int.TryParse(userInput[1], out productId))
+        if (userInput.Length < 2 || !int.TryParse(userInput[1], out productId))
         {
             Console.WriteLine("Неизвестная команда");
         }
