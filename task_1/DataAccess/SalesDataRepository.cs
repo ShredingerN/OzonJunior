@@ -19,6 +19,15 @@ public class SalesDataRepository: ISalesDataRepository
         var records = csv.GetRecords<SalesData>().ToList();
 
         Console.WriteLine($"Загружено записей: {records.Count}");
+        Console.WriteLine($"Загружено записей: {records.Count}");
+
+        // Вывод содержимого списка в консоль
+        foreach (var record in records)
+        {
+            Console.WriteLine($"Id: {record.Id}, Date: {record.Date}, Sales: {record.Sales}, Stock: {record.Stock}");
+        }
+
         return records;
+
     }
 }

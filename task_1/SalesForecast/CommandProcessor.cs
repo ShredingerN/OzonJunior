@@ -3,10 +3,16 @@ using DataAccess;
 
 namespace SalesForecast;
 
-public class CommandProcessor(ISalesCalculator calculator, ISalesDataRepository repository)
+public class CommandProcessor
 {
     private readonly ISalesDataRepository _repository;
     private readonly ISalesCalculator _calculator;
+
+    public CommandProcessor(ISalesCalculator calculator, ISalesDataRepository repository)
+    {
+        _calculator = calculator;
+        _repository = repository;
+    }
 
     public void Process(string command)
     {
@@ -24,7 +30,7 @@ public class CommandProcessor(ISalesCalculator calculator, ISalesDataRepository 
             Console.WriteLine("Неизвестная команда");
         }
         
-        List<SalesData> salesData = _repository.LoadData();
+        var salesData = _repository.LoadData();
 
         switch (userInput[0].ToLower())
         {
