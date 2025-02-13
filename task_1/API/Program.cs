@@ -38,21 +38,18 @@ app.MapGet("/product/{id}", (int id) =>
 app.MapGet("/product/{id}/ads", (int id,[FromQuery]int days) =>
     {
         return _calculator.CalculateAds(days);
-        
     })
     .WithOpenApi();
 
 app.MapGet("/product/{id}/prediction", (int id,[FromQuery]int days) =>
     {
         return _calculator.PredictSales(id,days);
-        
     })
     .WithOpenApi();
 
 app.MapGet("/product/{id}/demand", (int id,[FromQuery]int days) =>
     {
         return _calculator.CalculateDemand(id,days);
-        
     })
     .WithOpenApi();
 
