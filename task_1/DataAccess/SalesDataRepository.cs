@@ -1,19 +1,17 @@
-﻿using System.Globalization;
-using CsvHelper;
+﻿namespace DataAccess;
 
-namespace DataAccess;
-
-public class SalesDataRepository: ISalesDataRepository
+public class SalesDataRepository : ISalesDataRepository
 {
     private readonly string _filePath;
-    
+
     public SalesDataRepository(string filePath)
     {
         _filePath = filePath;
     }
+
     public List<SalesData> LoadData()
     {
-        var records = File.ReadLines(_filePath)
+        var salesData = File.ReadLines(_filePath)
             .Skip(1)
             .Where(l => !string.IsNullOrWhiteSpace(l))
             .Select(l =>
@@ -27,14 +25,19 @@ public class SalesDataRepository: ISalesDataRepository
                     Stock = int.Parse(parts[3]),
                 };
             }).ToList();
-        
-        Console.WriteLine($"Загружено записей: {records.Count}");
-        foreach (var record in records)
-        {
-            Console.WriteLine($"Id: {record.Id}, Date: {record.Date}, Sales: {record.Sales}, Stock: {record.Stock}");
-        }
 
-        return records;
+        // Console.WriteLine($"Загружено записей: {salesData.Count}");
+        // foreach (var record in salesData)
+        // {
+        //     Console.WriteLine($"Id: {record.Id}, Date: {record.Date}, Sales: {record.Sales}, Stock: {record.Stock}");
+        // }
 
+        return salesData;
+    }
+    
+    public List<SalesData> GetProductById(int productId)
+    {
+        var salesData = LoadData();
+        return salesData.Where(x => x.Id == productId).ToList();
     }
 }

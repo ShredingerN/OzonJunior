@@ -2,5 +2,5 @@
 
 public interface ISalesDataRepository
 {
-    List<SalesData> LoadData();
+    List<SalesData> GetProductById(int productId);
 }
