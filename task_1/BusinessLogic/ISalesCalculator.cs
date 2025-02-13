@@ -1,7 +1,4 @@
-﻿using DataAccess;
-
-
-namespace BusinessLogic;
+﻿namespace BusinessLogic;
 
 public interface ISalesCalculator
 {

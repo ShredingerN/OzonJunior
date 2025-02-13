@@ -15,23 +15,6 @@ public class SalesDataGenerator
 
     public static void GenerateCsv(string filePath)
     {
-        // var startDate = DateTime.Today.AddDays(-Days);
-        //
-        // var products = Enumerable.Range(1, ProductCount).ToList();
-        // var faker = new Faker<SalesData>()
-        //     .RuleFor(s => s.Id, f => f.PickRandom(products))
-        //     .RuleFor(s => s.Date, f => startDate.AddDays(f.IndexFaker))
-        //     .RuleFor(s => s.Sales, f => f.Random.Int(MinSales, MaxSales))
-        //     .RuleFor(s => s.Stock, f => f.Random.Int(MinStock, MaxStock));
-        //
-        // var salesData = faker
-        //     .Generate(Days * ProductCount)
-        //     .OrderBy(s => s.Id)
-        //     .ThenBy(s => s.Date).ToList();
-        // var writer = new StreamWriter(filePath);
-        // var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
-        // csv.WriteRecords(salesData);
-        
         var startDate = DateTime.Today.AddDays(-Days);
         var dates = Enumerable.Range(0, Days).Select(i => startDate.AddDays(i)).ToList();
 

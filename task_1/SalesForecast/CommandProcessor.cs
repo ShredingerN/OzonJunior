@@ -24,11 +24,11 @@ public class CommandProcessor
         int days = 0;
         if (userInput.Length < 2 || !int.TryParse(userInput[1], out productId))
         {
-            Console.WriteLine("Проверьте ввод, id продукта должен быть числом");
+            Console.WriteLine("Не введен id продукта или неверный формат");
             return;
         }
 
-        switch (userInput[0].ToLower())
+        switch (userInput[0])
         {
             case "ads":
                 double ads = _calculator.CalculateAds(productId);

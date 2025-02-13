@@ -25,13 +25,7 @@ public class SalesDataRepository : ISalesDataRepository
                     Stock = int.Parse(parts[3]),
                 };
             }).ToList();
-
-        // Console.WriteLine($"Загружено записей: {salesData.Count}");
-        // foreach (var record in salesData)
-        // {
-        //     Console.WriteLine($"Id: {record.Id}, Date: {record.Date}, Sales: {record.Sales}, Stock: {record.Stock}");
-        // }
-
+        
         return salesData;
     }
     
