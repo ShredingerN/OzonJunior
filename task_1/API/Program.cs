@@ -1,13 +1,26 @@
+using BusinessLogic;
+using DataAccess;
+using Microsoft.AspNetCore.Mvc;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+string filePath = "SalesData.csv";
+
+if (!File.Exists(filePath))
+{
+    SalesDataGenerator.GenerateCsv(filePath);
+}
+
+ISalesDataRepository _repository = new SalesDataRepository(filePath);
+ISalesCalculator _calculator = new SalesCalculator(_repository);
+
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -16,29 +29,31 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
+app.MapGet("/product/{id}", (int id) =>
     {
-        var forecast = Enumerable.Range(1, 5).Select(index =>
-                new WeatherForecast
-                (
-                    DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                    Random.Shared.Next(-20, 55),
-                    summaries[Random.Shared.Next(summaries.Length)]
-                ))
-            .ToArray();
-        return forecast;
+        return _repository.GetProductById(id);
     })
-    .WithName("GetWeatherForecast")
+    .WithOpenApi();
+
+app.MapGet("/product/{id}/ads", (int id,[FromQuery]int days) =>
+    {
+        return _calculator.CalculateAds(days);
+        
+    })
+    .WithOpenApi();
+
+app.MapGet("/product/{id}/prediction", (int id,[FromQuery]int days) =>
+    {
+        return _calculator.PredictSales(id,days);
+        
+    })
+    .WithOpenApi();
+
+app.MapGet("/product/{id}/demand", (int id,[FromQuery]int days) =>
+    {
+        return _calculator.CalculateDemand(id,days);
+        
+    })
     .WithOpenApi();
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

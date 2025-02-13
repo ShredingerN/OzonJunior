@@ -9,9 +9,9 @@ if (!File.Exists(filePath))
     SalesDataGenerator.GenerateCsv(filePath);
 }
 
-ISalesDataRepository repository = new SalesDataRepository(filePath);
-ISalesCalculator calculator = new SalesCalculator(repository);
-CommandProcessor commandProcessor = new CommandProcessor(calculator);
+ISalesDataRepository _repository = new SalesDataRepository(filePath);
+ISalesCalculator _calculator = new SalesCalculator(_repository);
+CommandProcessor commandProcessor = new CommandProcessor(_calculator);
 
 Console.WriteLine($"Ведите одну из следующих команд:{Environment.NewLine}" +
                   $"ads id товара{Environment.NewLine}" +
