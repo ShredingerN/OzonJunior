@@ -16,4 +16,8 @@
       <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="SalesData.csv" />
+    </ItemGroup>
+
 </Project>

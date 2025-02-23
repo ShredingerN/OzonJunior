@@ -10,7 +10,10 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-string filePath = "SalesData.csv";
+string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+string filePath = Path.Combine(baseDirectory, "SalesData.csv");
+
+// string filePath = "SalesData.csv";
 
 if (!File.Exists(filePath))
 {
