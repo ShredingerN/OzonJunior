@@ -28,12 +28,10 @@ public class SalesDataGenerator
             foreach (var date in dates)
             {
                 var salesData = new SalesData
-                {
-                    Id = productId,
-                    Date = date,
-                    Sales = faker.Random.Int(MinSales, MaxSales),
-                    Stock = faker.Random.Int(MinStock, MaxStock)
-                };
+                                {
+                                    Id = productId, Date = date, Sales = faker.Random.Int(MinSales, MaxSales)
+                                  , Stock = faker.Random.Int(MinStock, MaxStock)
+                                };
                 salesDataList.Add(salesData);
             }
         }
@@ -44,7 +42,7 @@ public class SalesDataGenerator
             foreach (var salesData in salesDataList)
             {
                 writer.WriteLine($"{salesData.Id}, " +
-                                 $"{salesData.Date.ToString("dd-MM-yyyy",CultureInfo.InvariantCulture)}, " +
+                                 $"{salesData.Date.ToString("dd-MM-yyyy", CultureInfo.InvariantCulture)}, " +
                                  $"{salesData.Sales}, " +
                                  $"{salesData.Stock}");
             }

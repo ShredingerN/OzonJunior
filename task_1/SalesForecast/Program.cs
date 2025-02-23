@@ -23,7 +23,7 @@ Console.WriteLine($"Ведите одну из следующих команд:{
 while (true)
 {
     string input = Console.ReadLine();
-    if (input.Trim().ToLower().Equals("exit")) 
+    if (input.Trim().ToLower().Equals("exit"))
         break;
     commandProcessor.Process(input);
 }

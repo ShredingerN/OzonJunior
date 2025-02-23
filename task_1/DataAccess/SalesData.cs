@@ -6,5 +6,4 @@ public class SalesData
     public DateTime Date { get; init; }
     public int Sales { get; init; }
     public int Stock { get; init; }
-    
 }
